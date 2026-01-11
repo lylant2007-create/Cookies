@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Scam Chat Demo</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(135deg, #f3e8ff, #e6f0ff);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat {
+  background: #ffffff;
+  width: 360px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #6b3fa0;
+}
+
+.bubble {
+  padding: 10px 14px;
+  border-radius: 16px;
+  margin: 6px 0;
+  max-width: 80%;
+  font-size: 14px;
+}
+
+.stranger {
+  background: #f0e6ff;
+  align-self: flex-start;
+}
+
+.user {
+  background: #d6e9ff;
+  align-self: flex-end;
+}
+
+.choices button {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999px;
+  background: #9f7aea;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.choices button:hover {
+  opacity: 0.9;
+}
+
+.warning {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #ff4d6d;
+  display: none;
+  text-align: center;
+}
+
+.safe {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #2f9e44;
+  display: none;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="chat">
+  <div class="header">Stranger</div>
+
+  <div class="bubble stranger">Hey, do you wanna get 1000 euro per day?</div>
+
+  <div class="choices">
+    <button onclick="chooseYes()">Yes, sounds amazing</button>
+    <button onclick="chooseScam()">It kinda scam, how to get the easy money?</button>
+  </div>
+
+  <div class="warning" id="warning">
+    🚨 Stranger: I will pick you up tomorrow.<br>
+    ⚠️ This could put you in serious danger. This is how people get trapped in scam compounds.
+  </div>
+
+  <div class="safe" id="safe">
+    Stranger left the chat.<br>
+    👍 You stayed alert and avoided a scam.
+  </div>
+</div>
+
+<script>
+function chooseYes() {
+  document.querySelector(".choices").style.display = "none";
+
+  const chat = document.querySelector(".chat");
+  const userBubble = document.createElement("div");
+  userBubble.className = "bubble user";
+  userBubble.innerText = "Yes, sounds amazing";
+  chat.insertBefore(userBubble, document.getElementById("warning"));
+
+  setTimeout(() => {
+    const strangerReply = document.createElement("div");
+    strangerReply.className = "bubble stranger";
+    strangerReply.innerText = "I will pick you up tomorrow.";
+    chat.insertBefore(strangerReply, document.getElementById("warning"));
+
+    document.getElementById("warning").style.display = "block";
+  }, 800);
+}
+
+function chooseScam() {
+  document.querySelector(".choices").style.display = "none";
+
+  const chat = document.querySelector(".chat");
+  const userBubble = document.createElement("div");
+  userBubble.className = "bubble user";
+  userBubble.innerText = "It kinda scam, how to get the easy money?";
+  chat.insertBefore(userBubble, document.getElementById("safe"));
+
+  setTimeout(() => {
+    document.getElementById("safe").style.display = "block";
+  }, 800);
+}
+</script>
+
+</body>
+</html>
