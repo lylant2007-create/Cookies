@@ -1,102 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Cute Ransomware Demo</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: linear-gradient(135deg, #e6d9ff, #f3e8ff);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card {
-      background: #fdf7ff;
-      padding: 30px 35px;
-      border-radius: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      max-width: 420px;
-      text-align: center;
-      animation: pop 0.6s ease;
-    }
-
-    h1 {
-      color: #7b4bb7;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #555;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .emoji {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .warning {
-      font-size: 12px;
-      color: #a06cd5;
-      margin-top: 10px;
-    }
-
-    button {
-      margin: 12px 6px 0;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 999px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    .pay {
-      background: #c7a7ff;
-      color: #3a1f6e;
-    }
-
-    .learn {
-      background: #eee;
-      color: #555;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Cute Ransomware Demo</title>
+<style>
+body{
+  margin:0;
+  font-family:monospace;
+  background:linear-gradient(135deg,#e6d9ff,#f3e8ff);
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  background:#1e1e2e;
+  color:#e6ddff;
+  padding:25px 30px;
+  border-radius:18px;
+  width:420px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+h1{color:#c7a7ff;margin-bottom:10px;}
+#terminal{
+  background:#0f0f18;
+  padding:15px;
+  border-radius:10px;
+  min-height:120px;
+  font-size:13px;
+  overflow:hidden;
+}
+.cursor::after{
+  content:"▋";
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.timer{
+  margin-top:10px;
+  color:#ffb3ff;
+}
+button{
+  margin-top:12px;
+  padding:8px 16px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:13px;
+}
+.pay{background:#c7a7ff;color:#3a1f6e;}
+.learn{background:#eee;color:#555;margin-left:8px;}
+.warning{
+  font-size:11px;
+  color:#aaa;
+  margin-top:10px;
+  text-align:center;
+}
+</style>
 </head>
 <body>
 
 <div class="card">
-  <div class="emoji">🔒🧸</div>
-  <h1>Your files are "locked"</h1>
-  <p>This is a <b>cute ransomware demo</b> inspired by WannaCry — for educational purposes only.</p>
-  <p>No files are harmed. Nothing is encrypted. This is just a simulation.</p>
+  <h1>🔒 WannaCry Demo</h1>
+
+  <div id="terminal" class="cursor"></div>
+
+  <div class="timer">Time left: <span id="countdown">24:00</span></div>
 
   <button class="pay" onclick="fakePay()">Pay 300 CuteCoins 💜</button>
   <button class="learn" onclick="learn()">Learn what happened</button>
 
-  <div class="warning">DEMO ONLY — Not real malware</div>
+  <div class="warning">DEMO ONLY — No files are harmed</div>
 </div>
 
+<audio id="beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
 <script>
-function fakePay() {
-  alert("💜 Payment received (not really 😄). This is just a demo!");
+const terminal = document.getElementById("terminal");
+const beep = document.getElementById("beep");
+
+const lines = [
+  "Initializing ransomware module...",
+  "Scanning your files...",
+  "Encrypting photos, documents, memories...",
+  "Encryption complete.",
+  "Oops... your files are locked 😈",
+  "Pay 300 CuteCoins to unlock."
+];
+
+let i=0, j=0;
+
+function typeLine(){
+  if(i < lines.length){
+    if(j < lines[i].length){
+      terminal.innerHTML += lines[i][j++];
+      beep.play();
+    } else {
+      terminal.innerHTML += "<br>";
+      i++; j=0;
+    }
+  }
+}
+setInterval(typeLine,80);
+
+// fake countdown
+let seconds = 24*60;
+setInterval(()=>{
+  seconds--;
+  let m = String(Math.floor(seconds/60)).padStart(2,"0");
+  let s = String(seconds%60).padStart(2,"0");
+  document.getElementById("countdown").innerText = m+":"+s;
+  if(seconds<=0) seconds = 24*60;
+},1000);
+
+function fakePay(){
+  alert("💸 Bank balance: 0 CuteCoins\n\nJust kidding 😄 This is a demo.\nNever pay ransomware in real life.");
 }
 
-function learn() {
-  alert("This screen mimics how ransomware scares users into paying. In reality, you should never pay — report and recover instead.");
+function learn(){
+  alert(
+    "This screen simulates how ransomware scares users.\n\n"+
+    "Real ransomware encrypts files and demands money.\n\n"+
+    "In real life: Disconnect, report, and restore from backup."
+  );
 }
 </script>
 
