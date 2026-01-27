@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAKE Payment Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .fake-banner {
+      background: red;
+      color: white;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .cars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .car {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .car h3 {
+      margin: 10px 0 5px;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .payment {
+      display: none;
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      margin: 30px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .payment input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      font-size: 22px;
+      color: green;
+      margin-top: 30px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: gray;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fake-banner">
+    ⚠️ FAKE PAYMENT SIMULATION – NOT REAL ⚠️
+  </div>
+
+  <h1>Luxury Car Store</h1>
+
+  <div class="cars">
+    <div class="car">
+      <h3>Ferrari</h3>
+      <div class="price">$450,000</div>
+      <button onclick="openPayment()">Buy</button>
+    </div>
+    <div class="car">
+      <h3>Rolls-Royce</h3>
+      <div class="price">$600,000</div>
+      <button onclick="openPayment()">Buy</button>
+    </div>
+    <div class="car">
+      <h3>Lamborghini</h3>
+      <div class="price">$520,000</div>
+      <button onclick="openPayment()">Buy</button>
+    </div>
+    <div class="car">
+      <h3>Porsche</h3>
+      <div class="price">$300,000</div>
+      <button onclick="openPayment()">Buy</button>
+    </div>
+  </div>
+
+  <div class="payment" id="payment">
+    <h2>Visa Payment (FAKE)</h2>
+
+    <input type="text" value="Jackie Bacons" readonly />
+    <input type="text" value="1234 5678 9101 2345" readonly />
+    <input type="password" placeholder="Enter PIN" id="pin" />
+
+    <button onclick="pay()">Confirm Payment</button>
+
+    <div class="note">
+      This is a fictional payment screen for educational purposes only.
+    </div>
+  </div>
+
+  <div class="success" id="success">
+    ✅ Payment Successful!  
+    <br />
+    <small>(FAKE TRANSACTION)</small>
+  </div>
+
+  <script>
+    function openPayment() {
+      document.getElementById("payment").style.display = "block";
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function pay() {
+      const pin = document.getElementById("pin").value;
+
+      if (pin === "12052000") {
+        document.getElementById("payment").style.display = "none";
+        document.getElementById("success").style.display = "block";
+      } else {
+        alert("Incorrect PIN (FAKE)");
+      }
+    }
+  </script>
+
+</body>
+</html>
